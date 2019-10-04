@@ -23,6 +23,16 @@ La commande `nginx -t` permet de tester le fichier de configuration et `nginx -s
 
 Dans le dossier `symfony`, copier le fichier `.env` vers `.env.local` et entrer les informations de connexion à la base de données.
 
+Toujours dans le même dossier, générer une clé RSA permettant d'encoder des Json Web Token.
+
+```sh
+mkdir -p config/jwt
+openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+```
+
+Puis entrer le mot de passe choisi dans le fichier `.env.local` à la variable d'environnement `JWT_PASSPHRASE`
+
 ### Installation des dépendances
 
 Dans les dossiers respects, installer les dépendances nécessaires.
