@@ -3,12 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShopRepository")
  */
-class Shop implements UserInterface
+class Shop
 {
     /**
      * @ORM\Id()
@@ -18,20 +17,9 @@ class Shop implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $username;
-
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
-
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     */
-    private $password;
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -39,85 +27,25 @@ class Shop implements UserInterface
     private $url;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="shop", cascade={"persist", "remove"})
      */
-    private $displayName;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
+    private $owner;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
+    public function getName(): ?string
     {
-        return (string) $this->username;
+        return $this->name;
     }
 
-    public function setUsername(string $username): self
+    public function setName(string $name): self
     {
-        $this->username = $username;
+        $this->name = $name;
 
         return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
-    {
-        return (string) $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getSalt()
-    {
-        // not needed when using the "bcrypt" algorithm in security.yaml
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials()
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 
     public function getUrl(): ?string
@@ -132,26 +60,20 @@ class Shop implements UserInterface
         return $this;
     }
 
-    public function getDisplayName(): ?string
+    public function getOwner(): ?User
     {
-        return $this->displayName;
+        return $this->owner;
     }
 
-    public function setDisplayName(string $displayName): self
+    public function setOwner(?User $owner): self
     {
-        $this->displayName = $displayName;
+        $this->owner = $owner;
 
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
+        // set (or unset) the owning side of the relation if necessary
+        $newShop = $owner === null ? null : $this;
+        if ($newShop !== $owner->getShop()) {
+            $owner->setShop($newShop);
+        }
 
         return $this;
     }

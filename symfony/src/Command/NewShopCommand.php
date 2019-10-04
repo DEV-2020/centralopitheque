@@ -3,7 +3,8 @@
 namespace App\Command;
 
 use App\Entity\Shop;
-use App\Repository\ShopRepository;
+use App\Repository\UserRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,20 +15,21 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class NewShopCommand extends Command
 {
     protected static $defaultName = 'new:shop';
-    private $shopRepository;
 
-    public function __construct(ShopRepository $shopRepository)
+    private $userRepository;
+    private $em;
+
+    public function __construct(UserRepository $userRepository, ObjectManager $em)
     {
         parent::__construct();
-        $this->shopRepository = $shopRepository;
+        $this->userRepository = $userRepository;
+        $this->em = $em;
     }
 
     protected function configure()
     {
         $this
-            ->setDescription('Add a short description for your command')
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
+            ->setDescription('Creates a shop and links it to a user')
         ;
     }
 
@@ -35,26 +37,17 @@ class NewShopCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $shopName = $io->ask('Shop display name');
-        $shopUsername = $io->ask('Shop username');
-        $shopEmail = $io->ask('Shop email');
+        $username = $io->ask('Account username the shop will be attached to');
 
-        $password = $io->askHidden('Shop password');
+        $user = $this->userRepository->findOneBy(['username' => $username]);
 
-        $passwordConfirm = $io->askHidden('Confirm password');
-
-        if ($password !== $passwordConfirm) {
-            return $io->error('Passwords do not match');
+        if (null === $user) {
+            return $io->error('User not found.');
         }
 
-        $shop = (new Shop)
-            ->setUsername($shopUsername)
-            ->setDisplayName($shopName)
-            ->setEmail($shopEmail)
-            ->setPassword($password);
+        $shopName = $io->ask('Shop name');
+        $user->setShop((new Shop())->setName($shopName));
 
-        $shop = $this->shopRepository->register($shop);
-
-        $io->success(sprintf('The user "%s" was created.', $shop->getUsername()));
+        $this->em->flush();
     }
 }
