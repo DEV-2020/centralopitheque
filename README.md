@@ -19,6 +19,8 @@ Des commentaires préciseront dans le fichier les lignes à modifier, à savoir:
 + `include` => Le chemin jusqu'aux `fastcgi_params` de votre version de PHP. Dépend de votre installation.
 + `error_log`, `access_log` => Chemin absolu jusqu'au dossier des fichiers temporaires de l'application Symfony.
 
+La commande `nginx -t` permet de tester le fichier de configuration et `nginx -s reload` permettra d'appliquer les changements.
+
 Dans le dossier `symfony`, copier le fichier `.env` vers `.env.local` et entrer les informations de connexion à la base de données.
 
 ### Installation des dépendances
