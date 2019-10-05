@@ -1,0 +1,3 @@
+gesdinet_jwt_refresh_token:
+    ttl: 2592000 # 1 month
+    ttl_update: true # Refreshes validity on update

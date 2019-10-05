@@ -32,6 +32,7 @@ class UserRepository extends ServiceEntityRepository
         $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
         $em->persist($user);
         $em->flush();
+
         return $user;
     }
 }
