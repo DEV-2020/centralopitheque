@@ -1,19 +1,34 @@
 <template>
   <nav class="navbar">
-    <h1>Centralopithèque</h1>
-    <ul>
+    <h1><router-link to="/">Centralopithèque</router-link></h1>
+    <ul v-if="!loggedIn">
       <li><router-link to="sign-up">{{ $t('signUp') }}</router-link></li>
       <li><router-link to="sign-in">{{ $t('signIn') }}</router-link></li>
+    </ul>
+    <ul v-else>
+      <li><b>{{ user.username }}</b></li>
+      <li><a @click="logoutClick">{{ $t('logout') }}</a></li>
     </ul>
   </nav>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import Component from 'vue-class-component';
+import { Getter, Action } from 'vuex-class';
+import { User } from '@/types/jwt';
 
-export default Vue.extend({
-  name: 'Navbar',
-});
+@Component
+export default class Navbar extends Vue {
+  @Getter('loggedIn', { namespace: 'auth' }) loggedIn!: boolean;
+  @Getter('user', { namespace: 'auth' }) user!: User;
+  @Action('logout', { namespace: 'auth' }) logout!: () => void;
+
+  logoutClick() {
+    this.logout();
+    this.$router.replace('/').catch(() => {});
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -27,17 +42,23 @@ export default Vue.extend({
   align-items: center;
   color: #fff;
 
+  h1 a {
+    text-decoration: inherit;
+    color: inherit;
+  }
+
   ul {
     display: flex;
     align-items: center;
 
     > li {
-      margin-left: 10px;
+      margin-left: 15px;
 
       a {
         text-decoration: none;
         color: $white;
         position: relative;
+        cursor: pointer;
 
         &:after {
           content: '';

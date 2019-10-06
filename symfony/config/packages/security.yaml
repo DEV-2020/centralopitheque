@@ -1,9 +1,7 @@
 security:
     encoders:
-        App\Entity\Shop:
-            algorithm: argon2i
         App\Entity\User:
-            algorithm: auto
+            algorithm: argon2i
 
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers

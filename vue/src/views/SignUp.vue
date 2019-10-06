@@ -3,7 +3,12 @@
     <h1>{{ $t('signUp') }}</h1>
     <form @submit.prevent="register">
       <label for="username">{{ $t('username') }}</label>
-      <input v-model="username" id="username" type="text">
+      <input
+        :class="{error: error === 'username'}"
+        v-model="username"
+        id="username"
+        type="text">
+      <small class="error" v-if="error === 'username'">{{ $t('errors.username') }}</small>
       <label for="email">{{ $t('email') }}</label>
       <input v-model="email" id="email" type="email">
       <label for="password">{{ $t('password') }}</label>
@@ -29,50 +34,58 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Component from 'vue-class-component';
+import { Action } from 'vuex-class';
 import axios from 'axios';
 import Spinner from '@/components/Spinner.vue';
 import { readJwt, updateAccessToken, updateRefreshToken } from '@/utils/auth';
 import { LoginJson } from '@/types/jwt';
 
-export default Vue.extend({
-  name: 'SignUp',
+@Component({
   components: {
     Spinner,
   },
-  data: () => ({
-    username: '',
-    email: '',
-    password: '',
-    passwordConfirm: '',
-    sendingRequest: false,
-  }),
-  methods: {
-    async register() {
-      const url = `${process.env.VUE_APP_API_URL}/public/register`;
-      const { username, email, password } = this;
-      this.sendingRequest = true;
+})
+export default class SignUp extends Vue {
+  private username: string = '';
+  private email: string = '';
+  private password: string = '';
+  private passwordConfirm: string = '';
+  private error: string = '';
+  private sendingRequest: boolean = false;
+
+  @Action('setUser', { namespace: 'auth' }) setUser!: (data: LoginJson) => void;
+
+  get passwordsMatch(): boolean {
+    return this.password === this.passwordConfirm;
+  }
+
+  async register() {
+    const url = `${process.env.VUE_APP_API_URL}/public/register`;
+    const { username, email, password } = this;
+    this.error = '';
+    this.sendingRequest = true;
+    try {
       const response = await axios.post(url, {
         username,
         email,
         password,
       })
-        .then(({ data }) => data)
-        .catch(err => console.error);
-      this.sendingRequest = false;
+        .then(({ data }) => data);
       this.save(response);
-    },
-    save(data: LoginJson) {
-      updateAccessToken(data.token);
-      updateRefreshToken(data.refresh_token);
-      console.log(readJwt(data.token));
-    },
-  },
-  computed: {
-    passwordsMatch(): boolean {
-      return this.password === this.passwordConfirm;
-    },
-  },
-});
+      this.$router.push({ name: 'home' });
+    } catch (e) {
+      this.error = e.response.data.error;
+    }
+    this.sendingRequest = false;
+  }
+
+  save(data: LoginJson) {
+    updateAccessToken(data.token);
+    updateRefreshToken(data.refresh_token);
+    this.setUser(data);
+  }
+}
 </script>
 
 <style lang="scss" scoped>

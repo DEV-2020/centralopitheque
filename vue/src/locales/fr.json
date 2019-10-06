@@ -1,9 +1,11 @@
 {
+  "logout": "Déconnexion",
   "signUp": "Inscription",
   "signIn": "Connexion",
   "username": "Nom d'utilisateur",
   "password": "Mot de passe",
   "passwordConfirm": "Confirmer le mot de passe",
   "passwordDontMatch": "Les mots de passe ne correspondent pas",
+  "invalidCredentials": "Identifiants de connexion invalides",
   "email": "Email"
 }
