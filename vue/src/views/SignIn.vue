@@ -22,6 +22,7 @@ import { Action } from 'vuex-class';
 import axios from 'axios';
 import Spinner from '@/components/Spinner.vue';
 import { updateAccessToken, updateRefreshToken } from '@/utils/auth';
+import routes from '@/constants/routes';
 import { LoginJson } from '@/types/jwt';
 
 @Component({
@@ -38,12 +39,11 @@ export default class SignIn extends Vue {
   @Action('setUser', { namespace: 'auth' }) setUser!: (data: LoginJson) => void;
 
   async login() {
-    const url = `${process.env.VUE_APP_API_URL}/login_check`;
     const { username, password } = this;
     this.sendingRequest = true;
     this.error = false;
     try {
-      const response = await axios.post(url, {
+      const response = await axios.post<LoginJson>(routes.LOGIN_CHECK, {
         username,
         password,
       })

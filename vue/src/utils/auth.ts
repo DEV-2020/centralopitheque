@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
 import axios from 'axios';
+import routes from '@/constants/routes';
 import { User, LoginJson } from '@/types/jwt';
 
 export function readJwt(token: string): User {
@@ -30,7 +31,7 @@ export function clearTokens(): void {
 
 export function refreshToken(): Promise<void> {
   const token = getRefreshToken();
-  return axios.post<LoginJson>(`${process.env.VUE_APP_API_URL}/token/refresh`, {
+  return axios.post<LoginJson>(routes.TOKEN_REFRESH, {
     refresh_token: token,
   })
     .then(({ data }) => {

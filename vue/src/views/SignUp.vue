@@ -39,6 +39,7 @@ import { Action } from 'vuex-class';
 import axios from 'axios';
 import Spinner from '@/components/Spinner.vue';
 import { readJwt, updateAccessToken, updateRefreshToken } from '@/utils/auth';
+import routes from '@/constants/routes';
 import { LoginJson } from '@/types/jwt';
 
 @Component({
@@ -61,12 +62,11 @@ export default class SignUp extends Vue {
   }
 
   async register() {
-    const url = `${process.env.VUE_APP_API_URL}/public/register`;
     const { username, email, password } = this;
     this.error = '';
     this.sendingRequest = true;
     try {
-      const response = await axios.post(url, {
+      const response = await axios.post<LoginJson>(routes.REGISTER, {
         username,
         email,
         password,
