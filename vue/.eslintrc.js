@@ -16,6 +16,7 @@ module.exports = {
       vue: 'always',
       js: 'never',
       ts: 'never',
+      scss: 'always',
     }]
   },
   parserOptions: {

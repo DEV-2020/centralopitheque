@@ -1,0 +1,9 @@
+{
+  "signUp": "Sign up",
+  "signIn": "Sign in",
+  "username": "Username",
+  "password": "Password",
+  "passwordConfirm": "Confirm password",
+  "passwordDontMatch": "Passwords do not match",
+  "email": "Email"
+}
