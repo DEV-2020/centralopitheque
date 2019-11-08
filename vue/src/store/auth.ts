@@ -33,6 +33,9 @@ const getters: GetterTree<AuthState, RootState> = {
   user(state: AuthState): User | undefined {
     return state.user;
   },
+  isAdmin(state: AuthState): boolean {
+    return state.user !== undefined && state.user!.roles.includes('ROLE_ADMIN');
+  },
 };
 
 const mutations: MutationTree<AuthState> = {

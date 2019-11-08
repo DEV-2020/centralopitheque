@@ -10,6 +10,7 @@
     </svg>
   </div>
 </template>
+
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
@@ -43,7 +44,7 @@ export default class CopyClipboard extends Vue {
   private text!: string;
   private copy!: string;
 
-  copySuccess() {
+  copySuccess(): void {
     this.$notify({
       group: 'notifications',
       text: this.text,

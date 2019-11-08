@@ -22,6 +22,16 @@ const routes: RouteConfig[] = [
     name: 'dashboard',
     component: () => import(/* webpackChunkName: "sign-in" */ '@/views/Dashboard.vue'),
   },
+  {
+    path: '/dashboard/spectacles/manage',
+    name: 'spectacles-manage',
+    component: () => import(/* webpackChunkName: "spectacles-manage" */ '@/views/ManageSpectacles.vue'),
+  },
+  {
+    path: '/dashboard/spectacles/manage/add',
+    name: 'new-spectacle',
+    component: () => import(/* webpackChunkName: "new-spectacle" */ '@/views/SpectacleNew.vue'),
+  },
 ];
 
 export default routes;

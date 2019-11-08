@@ -2,6 +2,7 @@
   "logout": "Logout",
   "logoutSuccess": "You successfully logged out",
   "expiredSession": "Your session expired",
+  "manageSpectacles": "Manage spectacles",
   "signUp": "Sign up",
   "signIn": "Sign in",
   "username": "Username",
@@ -10,6 +11,8 @@
   "passwordDontMatch": "Passwords do not match",
   "invalidCredentials": "Invalid credentials",
   "email": "Email",
-  "tokenCopied": "Token copié dans le presse-papier",
-  "copyToken": "Copier le token dans le presse-papier"
+  "tokenCopied": "Token successfully copied to clipboard",
+  "copyToken": "Copy token to clipboard",
+  "spectaclesManagement": "Spectacles management",
+  "spectacleNew": "New spectacle"
 }

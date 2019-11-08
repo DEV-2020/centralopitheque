@@ -35,11 +35,8 @@ $duration: 1.4s;
 }
 
 @keyframes colors {
-  0% { stroke: #4285F4; }
-  25% { stroke: #DE3E35; }
-  50% { stroke: #F7C223; }
-  75% { stroke: #1B9A59; }
-  100% { stroke: #4285F4; }
+  from { stroke: #fff; }
+  to { stroke: #fff; }
 }
 
 @keyframes dash {
