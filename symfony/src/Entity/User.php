@@ -79,7 +79,9 @@ class User implements UserInterface
 
     public function setRoles(array $roles): self
     {
-        $this->roles = $roles;
+        $this->roles = array_filter($roles, function (string $role) {
+            return 'ROLE_USER' !== $role;
+        });
 
         return $this;
     }

@@ -35,4 +35,9 @@ class UserRepository extends ServiceEntityRepository
 
         return $user;
     }
+
+    public function saveUser()
+    {
+        $this->_em->flush();
+    }
 }
