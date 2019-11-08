@@ -1,5 +1,7 @@
 {
   "logout": "Logout",
+  "logoutSuccess": "You successfully logged out",
+  "expiredSession": "Your session expired",
   "signUp": "Sign up",
   "signIn": "Sign in",
   "username": "Username",
@@ -7,5 +9,7 @@
   "passwordConfirm": "Confirm password",
   "passwordDontMatch": "Passwords do not match",
   "invalidCredentials": "Invalid credentials",
-  "email": "Email"
+  "email": "Email",
+  "tokenCopied": "Token copié dans le presse-papier",
+  "copyToken": "Copier le token dans le presse-papier"
 }

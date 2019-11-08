@@ -1,5 +1,7 @@
 {
   "logout": "Déconnexion",
+  "logoutSuccess": "Vous avez été déconnecté(e)",
+  "expiredSession": "Votre session a expiré",
   "signUp": "Inscription",
   "signIn": "Connexion",
   "username": "Nom d'utilisateur",
@@ -7,5 +9,7 @@
   "passwordConfirm": "Confirmer le mot de passe",
   "passwordDontMatch": "Les mots de passe ne correspondent pas",
   "invalidCredentials": "Identifiants de connexion invalides",
-  "email": "Email"
+  "email": "Email",
+  "tokenCopied": "Token copied to clipboard",
+  "copyToken": "Copy token to clipboard"
 }

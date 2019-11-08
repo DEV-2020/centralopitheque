@@ -17,6 +17,11 @@ const routes: RouteConfig[] = [
     name: 'sign-in',
     component: () => import(/* webpackChunkName: "sign-in" */ '@/views/SignIn.vue'),
   },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import(/* webpackChunkName: "sign-in" */ '@/views/Dashboard.vue'),
+  },
 ];
 
 export default routes;

@@ -2,9 +2,9 @@
 
 import axios from 'axios';
 import routes from '@/constants/routes';
-import { User, LoginJson } from '@/types/jwt';
+import { LoginJson, JWT } from '@/types/jwt';
 
-export function readJwt(token: string): User {
+export function readJwt(token: string): JWT {
   return JSON.parse(atob(token.split('.')[1]));
 }
 
@@ -27,6 +27,14 @@ export function getRefreshToken(): string | null {
 export function clearTokens(): void {
   localStorage.removeItem('refreshToken');
   localStorage.removeItem('accessToken');
+}
+
+export function isTokenValid(): boolean {
+  const token = getAccessToken();
+  if (!token) return false;
+
+  const jwt = readJwt(token);
+  return jwt.exp * 1000 > Date.now();
 }
 
 export function refreshToken(): Promise<void> {

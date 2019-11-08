@@ -6,7 +6,7 @@
       <li><router-link to="sign-in">{{ $t('signIn') }}</router-link></li>
     </ul>
     <ul v-else>
-      <li><b>{{ user.username }}</b></li>
+      <li><router-link to="dashboard"><b>{{ user.username }}</b></router-link></li>
       <li><a @click="logoutClick">{{ $t('logout') }}</a></li>
     </ul>
   </nav>
@@ -27,6 +27,11 @@ export default class Navbar extends Vue {
   logoutClick() {
     this.logout();
     this.$router.replace('/').catch(() => {});
+    this.$notify({
+      group: 'notifications',
+      type: 'success',
+      text: this.$tc('logoutSuccess'),
+    });
   }
 }
 </script>

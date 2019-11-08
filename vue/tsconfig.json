@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "emitDecoratorMetadata": true,
     "target": "esnext",
     "module": "esnext",
     "strict": true,
@@ -8,6 +9,7 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
@@ -26,13 +28,6 @@
       "scripthost"
     ]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
-  ],
   "exclude": [
     "node_modules"
   ]

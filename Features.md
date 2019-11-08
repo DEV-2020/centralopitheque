@@ -51,3 +51,18 @@ Refresh token à passer en variable d'environnement / `parameters.yml`
 
 + User (Je crois que c'est la seule chose commune à chaque boutique en vrai ?)
 + ?
+
+## Process
+
+La boutique s'enregistre sur la centrale, ce qui va lui créer un refresh_token dont
+elle se servira pour faire toutes les requêtes vers la centrale. Le token se trouvera dans
+un onglet de l'interface sur la centrale.
+
+La centrale possède une liste de spectacles. Chaque boutique peut avoir N spectacles à
+vendre (la limite est de 3 dans les consignes). Les admins de la centrale peuvent assigner
+à une boutique ses spectacles via une interface (/shops/{id}/spectacles) se présentant sous
+la forme de tableau avec des lignes à cocher pour montrer / cacher les spectacles. Ces lignes
+contiennent le nom, la date (et les effectifs de vente ? -> ex: 23/30).
+
+Une route API sera disponible pour permettre aux boutiques de lister et vendre les spectacles
+auxquels elles sont autorisées.
