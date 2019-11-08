@@ -63,7 +63,7 @@ class UserRolesCommand extends Command
             });
         }
 
-        $user->setRoles($roles);
+        $user->setRoles(array_values($roles));
 
         $this->userRepository->saveUser();
         
