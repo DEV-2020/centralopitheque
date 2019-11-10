@@ -20,14 +20,14 @@
       </div>
       <div class="row">
         <label for="hours">Heure: </label>
-        <select v-model="hour" name="hours" id="hours">
-          <option v-for="(_, i) in 23" :key="i" :value="i">
+        <select v-model="hours" name="hours" id="hours">
+          <option v-for="(_, i) in 24" :key="i" :value="i">
             {{ i.toString().padStart(2, '0') }}
           </option>
         </select>
         <span>:</span>
         <select v-model="minutes" name="minutes" id="minutes">
-          <option v-for="(_, i) in 59" :key="i" :value="i">
+          <option v-for="(_, i) in 60" :key="i" :value="i">
             {{ i.toString().padStart(2, '0') }}
           </option>
         </select>
@@ -46,7 +46,19 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import { Spectacle } from '@/types/spectacles';
+import { toPhpDate } from '@/utils/time-converter';
 import ButtonActivityIndicator from '@/components/ButtonActivityIndicator.vue';
+import routes from '@/constants/routes';
+
+interface NewSpectacleData {
+  name: string;
+  price: number;
+  places: number;
+  hours: number;
+  minutes: number;
+  date?: string;
+}
 
 @Component({
   components: {
@@ -57,14 +69,28 @@ export default class SpectacleNew extends Vue {
   private name: string = '';
   private price: number = 0;
   private date: Date = new Date();
-  private hour: number = 20;
+  private hours: number = 20;
   private minutes: number = 0;
   private places: number = 30;
 
   private busy: boolean = false;
 
   newSpectacle() {
-    // Make post call here
+    const postData: NewSpectacleData = (({
+      name, price, places, hours, minutes,
+    }) => ({
+      name, price, places, hours, minutes,
+    }))(this);
+
+    postData.date = toPhpDate(this.date);
+
+    this.busy = true;
+    this.$api.post<Spectacle>(routes.SPECTACLE_NEW, postData)
+      .then(() => {
+        this.busy = false;
+        this.$router.replace({ name: 'spectacles-manage' });
+      })
+      .catch(console.error);
   }
 }
 </script>

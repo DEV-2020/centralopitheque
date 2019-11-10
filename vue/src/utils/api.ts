@@ -25,4 +25,5 @@ instance.interceptors.response.use(undefined, async (error) => {
 
   return Promise.reject(error);
 });
+
 export default instance;
