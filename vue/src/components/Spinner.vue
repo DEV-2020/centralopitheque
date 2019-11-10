@@ -1,15 +1,30 @@
 <template>
   <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-  <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30" />
+  <circle
+    class="path"
+    fill="none"
+    :stroke="stroke"
+    stroke-width="6"
+    stroke-linecap="round"
+    cx="33" cy="33" r="30" />
   </svg>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import Component from 'vue-class-component';
 
-export default Vue.extend({
-  name: 'Spinner',
-});
+@Component({
+  props: {
+    stroke: {
+      required: false,
+      default: '#fff',
+    },
+  },
+})
+export default class Spinner extends Vue {
+  private stroke!: string;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -31,12 +46,6 @@ $duration: 1.4s;
   transform-origin: center;
   animation:
     dash $duration ease-in-out infinite,
-    colors ($duration*4) ease-in-out infinite;
-}
-
-@keyframes colors {
-  from { stroke: #fff; }
-  to { stroke: #fff; }
 }
 
 @keyframes dash {

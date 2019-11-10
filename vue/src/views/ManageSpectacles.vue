@@ -6,29 +6,34 @@
         <router-link :to="{name: 'new-spectacle'}"><span>+</span>Créer</router-link>
       </li>
     </ul>
-    <div v-if="spectacleList.length" class="spectacles-list">
+    <div class="spectacles-list">
       <table>
         <thead>
-          <!-- <td>ID</td> -->
           <td>Name</td>
           <td>Places</td>
           <td>Price</td>
           <td>Date</td>
           <td>Heure</td>
         </thead>
-        <tbody>
+        <tbody v-if="!spectacleList.length">
+          <tr>
+            <td colspan="5">
+              <Spinner v-if="!loaded" :stroke="'#2ecc71'" />
+              <p class="empty-list" v-else>No spectacles available</p>
+            </td>
+          </tr>
+        </tbody>
+        <tbody v-else>
           <tr v-for="item in spectacleList" :key="item.id">
-            <!-- <td>{{ item.id }}</td> -->
             <td>{{ item.name }}</td>
             <td>{{ item.places }}</td>
             <td>{{ item.price }}€</td>
-            <td>{{ toReadableDate(item.date) }}</td>
+            <td>{{ item.date | toReadableDate }}</td>
             <td>{{ item.hours | padded }}:{{ item.minutes | padded }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p v-else class="empty-list">No spectacles available</p>
   </div>
 </template>
 
@@ -44,18 +49,17 @@ import { Spectacle } from '@/types/spectacles';
     padded(str: number) {
       return str.toString().padStart(2, '0');
     },
+    toReadableDate,
   },
 })
 export default class ManageSpectacles extends Vue {
+  private loaded: boolean = false;
   private spectacleList: Spectacle[] = [];
-
-  toReadableDate(date: Date) {
-    return toReadableDate(new Date(date));
-  }
 
   created() {
     this.$api.get<Spectacle[]>(routes.SPECTACLES_LIST)
       .then(({ data }) => {
+        this.loaded = true;
         this.spectacleList = data;
       })
       .catch(console.error);
@@ -66,6 +70,11 @@ export default class ManageSpectacles extends Vue {
 <style lang="scss" scoped>
 .manage-spectacles {
   margin: 20px;
+
+  .spinner {
+    height: 40px;
+    margin: 10px;
+  }
 
   h1 {
     text-align: left;
@@ -97,17 +106,16 @@ export default class ManageSpectacles extends Vue {
     }
   }
 
-  p.empty-list {
-    text-align: left;
-    opacity: .7;
-    margin: 30px 0;
-  }
-
   .spectacles-list {
     margin: 20px 0;
     table {
       td {
         padding: 5px 10px;
+
+        p.empty-list {
+          text-align: center;
+          opacity: .7;
+        }
       }
 
       tr:nth-child(even) {
