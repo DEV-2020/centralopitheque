@@ -6,5 +6,5 @@ export function toPhpDate(date: Date): string {
 
 export function toReadableDate(datestring: string): string {
   const date = new Date(datestring);
-  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
 }

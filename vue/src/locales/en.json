@@ -13,6 +13,14 @@
   "email": "Email",
   "tokenCopied": "Token successfully copied to clipboard",
   "copyToken": "Copy token to clipboard",
+  "spectacles": "Spectacles",
   "spectaclesManagement": "Spectacles management",
-  "spectacleNew": "New spectacle"
+  "spectacleNew": "New spectacle",
+  "name": "Name",
+  "places": "Places",
+  "price": "Price",
+  "date": "Date",
+  "time": "Hour",
+  "noSpectaclesAvailable": "No spectacles available",
+  "add": "Add"
 }

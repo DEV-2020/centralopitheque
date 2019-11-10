@@ -11,7 +11,7 @@
       </p>
     </div>
     <div v-if="isAdmin" class="row dashboard-spectacles">
-      <h2>Spectacles</h2>
+      <h2>{{ $t('spectacles') }}</h2>
       <DashboardSpectacles />
     </div>
   </div>

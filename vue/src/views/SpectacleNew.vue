@@ -3,15 +3,15 @@
     <h1>{{ $t('spectacleNew') }}</h1>
     <form @submit.prevent="newSpectacle">
       <div class="row">
-        <label for="name">Nom: </label>
+        <label for="name">{{ $t('name') }}: </label>
         <input v-model="name" type="text" id="name">
       </div>
       <div class="row">
-        <label for="price">Prix(€): </label>
+        <label for="price">{{ $t('price') }}(€): </label>
         <input v-model="price" type="number" step=".01" min="0" id="price">
       </div>
       <div class="row">
-        <label for="price">Date: </label>
+        <label for="price">{{ $t('date') }}: </label>
         <v-date-picker
           :popover="{ visibility: 'click' }"
           mode="single"
@@ -19,7 +19,7 @@
           v-model="date" />
       </div>
       <div class="row">
-        <label for="hours">Heure: </label>
+        <label for="hours">{{ $t('time') }}: </label>
         <select v-model="hours" name="hours" id="hours">
           <option v-for="(_, i) in 24" :key="i" :value="i">
             {{ i.toString().padStart(2, '0') }}
@@ -33,11 +33,11 @@
         </select>
       </div>
       <div class="row">
-        <label for="places">Places: </label>
+        <label for="places">{{ $t('places') }}: </label>
         <input v-model="places" disabled type="number" id="places">
       </div>
       <div class="row">
-        <ButtonActivityIndicator :busy="busy">Ajout</ButtonActivityIndicator>
+        <ButtonActivityIndicator :busy="busy">{{ $t('add') }}</ButtonActivityIndicator>
       </div>
     </form>
   </div>

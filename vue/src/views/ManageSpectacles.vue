@@ -9,23 +9,23 @@
     <div class="spectacles-list">
       <table>
         <thead>
-          <td>Name</td>
-          <td>Places</td>
-          <td>Price</td>
-          <td>Date</td>
-          <td>Heure</td>
+          <td class="name">{{ $t('name') }}</td>
+          <td>{{ $t('places') }}</td>
+          <td>{{ $t('price') }}</td>
+          <td>{{ $t('date') }}</td>
+          <td>{{ $t('time') }}</td>
         </thead>
         <tbody v-if="!spectacleList.length">
           <tr>
             <td colspan="5">
               <Spinner v-if="!loaded" :stroke="'#2ecc71'" />
-              <p class="empty-list" v-else>No spectacles available</p>
+              <p class="empty-list" v-else>{{ $t('noSpectaclesAvailable') }}</p>
             </td>
           </tr>
         </tbody>
         <tbody v-else>
           <tr v-for="item in spectacleList" :key="item.id">
-            <td>{{ item.name }}</td>
+            <td class="name">{{ item.name }}</td>
             <td>{{ item.places }}</td>
             <td>{{ item.price }}€</td>
             <td>{{ item.date | toReadableDate }}</td>
@@ -109,8 +109,16 @@ export default class ManageSpectacles extends Vue {
   .spectacles-list {
     margin: 20px 0;
     table {
+      thead {
+        background-color: $gray;
+      }
+
       td {
         padding: 5px 10px;
+
+        &.name {
+          text-align: left;
+        }
 
         p.empty-list {
           text-align: center;

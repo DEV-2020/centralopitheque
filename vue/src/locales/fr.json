@@ -13,6 +13,14 @@
   "email": "Email",
   "tokenCopied": "Token copié dans le presse-papier",
   "copyToken": "Copier le token dans le press-papier",
+  "spectacles": "Spectacles",
   "spectaclesManagement": "Gestion des spectacles",
-  "spectacleNew": "Nouveau spectacle"
+  "spectacleNew": "Nouveau spectacle",
+  "name": "Nom",
+  "places": "Places",
+  "price": "Prix",
+  "date": "Date",
+  "time": "Heure",
+  "noSpectaclesAvailable": "Pas de spectacles disponibles",
+  "add": "Ajouter"
 }
