@@ -23,6 +23,8 @@ La commande `nginx -t` permet de tester le fichier de configuration et `nginx -s
 
 Dans le dossier `symfony`, copier le fichier `.env` vers `.env.local` et entrer les informations de connexion à la base de données.
 
+Faire la même chose pour le dossier `vue`.
+
 Toujours dans le même dossier, générer une clé RSA permettant d'encoder des Json Web Token.
 
 ```sh
