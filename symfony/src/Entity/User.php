@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -14,16 +15,19 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"default"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"default"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"default"})
      */
     private $roles = [];
 
@@ -35,11 +39,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"default"})
      */
     private $email;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Shop", inversedBy="owner", cascade={"persist", "remove"})
+     * @Groups({"withShop"})
      */
     private $shop;
 

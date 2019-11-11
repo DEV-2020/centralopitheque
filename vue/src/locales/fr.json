@@ -3,6 +3,7 @@
   "logoutSuccess": "Vous avez été déconnecté(e)",
   "expiredSession": "Votre session a expiré",
   "manageSpectacles": "Gérer les spectacles",
+  "manageShops": "Gérer les boutiques",
   "signUp": "Inscription",
   "signIn": "Connexion",
   "username": "Nom d'utilisateur",
@@ -14,7 +15,10 @@
   "tokenCopied": "Token copié dans le presse-papier",
   "copyToken": "Copier le token dans le press-papier",
   "spectacles": "Spectacles",
+  "shops": "Boutiques",
+  "shop": "Boutique",
   "spectaclesManagement": "Gestion des spectacles",
+  "shopsManagement": "Gestion des boutiques",
   "spectacleNew": "Nouveau spectacle",
   "name": "Nom",
   "places": "Places",
@@ -22,5 +26,6 @@
   "date": "Date",
   "time": "Heure",
   "noSpectaclesAvailable": "Pas de spectacles disponibles",
-  "add": "Ajouter"
+  "add": "Ajouter",
+  "url": "URL"
 }

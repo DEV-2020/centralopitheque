@@ -3,6 +3,7 @@
   "logoutSuccess": "You successfully logged out",
   "expiredSession": "Your session expired",
   "manageSpectacles": "Manage spectacles",
+  "manageShops": "Manage shops",
   "signUp": "Sign up",
   "signIn": "Sign in",
   "username": "Username",
@@ -14,7 +15,10 @@
   "tokenCopied": "Token successfully copied to clipboard",
   "copyToken": "Copy token to clipboard",
   "spectacles": "Spectacles",
+  "shops": "Shops",
+  "shop": "Shop",
   "spectaclesManagement": "Spectacles management",
+  "shopsManagement": "Shops management",
   "spectacleNew": "New spectacle",
   "name": "Name",
   "places": "Places",
@@ -22,5 +26,6 @@
   "date": "Date",
   "time": "Hour",
   "noSpectaclesAvailable": "No spectacles available",
-  "add": "Add"
+  "add": "Add",
+  "url": "URL"
 }

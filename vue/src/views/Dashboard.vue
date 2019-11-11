@@ -14,6 +14,10 @@
       <h2>{{ $t('spectacles') }}</h2>
       <DashboardSpectacles />
     </div>
+    <div v-if="isAdmin" class="row dashboard-shops">
+      <h2>{{ $t('shops') }}</h2>
+      <DashboardShops />
+    </div>
   </div>
 </template>
 
@@ -23,12 +27,14 @@ import Component from 'vue-class-component';
 import { Getter } from 'vuex-class';
 import CopyClipboard from '@/components/CopyClipboard.vue';
 import DashboardSpectacles from '@/components/DashboardSpectacles.vue';
+import DashboardShops from '@/components/DashboardShops.vue';
 import { getRefreshToken } from '@/utils/auth';
 
 @Component({
   components: {
     CopyClipboard,
     DashboardSpectacles,
+    DashboardShops,
   },
 })
 export default class Dashboard extends Vue {

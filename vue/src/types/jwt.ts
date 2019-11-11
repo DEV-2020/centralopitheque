@@ -12,6 +12,13 @@ export interface LoginJson {
   refresh_token: string;
 }
 
+export interface ApiUser {
+  id: number;
+  username: string;
+  roles: string[];
+  email: string;
+}
+
 export interface User {
   username: string;
   roles: string[];

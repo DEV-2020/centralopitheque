@@ -7,4 +7,7 @@ export default {
 
   SPECTACLES_LIST: `${baseUrl}/spectacles`,
   SPECTACLE_NEW: `${baseUrl}/spectacle/new`,
+
+  SHOPS_LIST: `${baseUrl}/shops`,
+  // SPECTACLE_NEW: `${baseUrl}/spectacle/new`,
 };

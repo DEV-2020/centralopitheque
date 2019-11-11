@@ -20,12 +20,17 @@ const routes: RouteConfig[] = [
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: () => import(/* webpackChunkName: "sign-in" */ '@/views/Dashboard.vue'),
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard.vue'),
   },
   {
     path: '/dashboard/spectacles/manage',
     name: 'spectacles-manage',
     component: () => import(/* webpackChunkName: "spectacles-manage" */ '@/views/ManageSpectacles.vue'),
+  },
+  {
+    path: '/dashboard/shops/manage',
+    name: 'shops-manage',
+    component: () => import(/* webpackChunkName: "shops-manage" */ '@/views/ManageShops.vue'),
   },
   {
     path: '/dashboard/spectacles/manage/add',
