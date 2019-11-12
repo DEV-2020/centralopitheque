@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Vuex, { StoreOptions } from 'vuex';
 import { RootState } from '@/types/store';
 import auth from './auth';
+import shops from './shops';
+import spectacles from './spectacles';
 
 Vue.use(Vuex);
 
@@ -10,6 +12,8 @@ const store: StoreOptions<RootState> = {
   },
   modules: {
     auth,
+    shops,
+    spectacles,
   },
 };
 

@@ -15,7 +15,7 @@
           <td>{{ $t('date') }}</td>
           <td>{{ $t('time') }}</td>
         </thead>
-        <tbody v-if="!spectacleList.length">
+        <tbody v-if="!spectacles.length">
           <tr>
             <td colspan="5">
               <Spinner v-if="!loaded" :stroke="'#2ecc71'" />
@@ -24,7 +24,7 @@
           </tr>
         </tbody>
         <tbody v-else>
-          <tr v-for="item in spectacleList" :key="item.id">
+          <tr v-for="item in spectacles" :key="item.id">
             <td class="name">{{ item.name }}</td>
             <td>{{ item.places }}</td>
             <td>{{ item.price }}€</td>
@@ -40,6 +40,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import { Getter, Action } from 'vuex-class';
 import routes from '@/constants/routes';
 import { toReadableDate } from '@/utils/time-converter';
 import { Spectacle } from '@/types/spectacles';
@@ -54,13 +55,16 @@ import { Spectacle } from '@/types/spectacles';
 })
 export default class ManageSpectacles extends Vue {
   private loaded: boolean = false;
-  private spectacleList: Spectacle[] = [];
+  @Getter('spectacles', { namespace: 'spectacles' }) private spectacles!: Spectacle[];
+
+  @Action('setSpectacles', { namespace: 'spectacles' })
+  setSpectacles!: (spectacles: Spectacle[]) => void;
 
   created() {
     this.$api.get<Spectacle[]>(routes.SPECTACLES_LIST)
       .then(({ data }) => {
         this.loaded = true;
-        this.spectacleList = data;
+        this.setSpectacles(data);
       })
       .catch(console.error);
   }

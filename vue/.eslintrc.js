@@ -13,6 +13,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'import/no-unresolved': 'off',
     'lines-between-class-members': 'off',
+    'consistent-return': 'off',
     'class-methods-use-this': 'off',
     'import/extensions': [2, {
       vue: 'always',

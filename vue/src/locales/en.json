@@ -27,5 +27,7 @@
   "time": "Hour",
   "noSpectaclesAvailable": "No spectacles available",
   "add": "Add",
-  "url": "URL"
+  "save": "Save",
+  "url": "URL",
+  "spectacleSelect": "Spectacles selection"
 }

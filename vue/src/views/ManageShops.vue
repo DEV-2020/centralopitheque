@@ -15,24 +15,27 @@
             <td class="left">{{ $t('url') }}</td>
           </tr>
         </thead>
-        <tbody v-if="!shopsList.length">
-            <tr>
-              <td colspan="5">
-                <Spinner v-if="!loaded" :stroke="'#2ecc71'" />
-                <p class="empty-list" v-else>{{ $t('noShops') }}</p>
-              </td>
-            </tr>
-          </tbody>
-          <tbody v-else>
-            <tr v-for="shop in shopsList" :key="shop.id">
-              <td class="left">{{ shop.name }}</td>
-              <td class="left">{{ shop.owner.email }}</td>
-              <td>
-                <a :href="shop.url" class="left" v-if="shop.url">{{ shop.url }}</a>
-                <span v-else>ø</span>
-              </td>
-            </tr>
-          </tbody>
+        <tbody v-if="!shops.length">
+          <tr>
+            <td colspan="5">
+              <Spinner v-if="!loaded" :stroke="'#2ecc71'" />
+              <p class="empty-list" v-else>{{ $t('noShops') }}</p>
+            </td>
+          </tr>
+        </tbody>
+        <tbody v-else>
+          <tr
+            @click="goToDetail(shop)"
+            v-for="shop in shops"
+            :key="shop.id">
+            <td class="left">{{ shop.name }}</td>
+            <td class="left">{{ shop.owner.email }}</td>
+            <td>
+              <a :href="shop.url" class="left" v-if="shop.url">{{ shop.url }}</a>
+              <span v-else>ø</span>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
@@ -41,21 +44,32 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import { Action, Getter } from 'vuex-class';
 import routes from '@/constants/routes';
 import { Shop } from '@/types/shops';
 
 @Component
 export default class ManageShops extends Vue {
   private loaded: boolean = false;
-  private shopsList: Shop[] = [];
+  @Getter('shops', { namespace: 'shops' }) shops!: Shop[];
+  @Action('setShops', { namespace: 'shops' }) setShops!: (shops: Shop[]) => void;
 
   created() {
     this.$api.get<Shop[]>(routes.SHOPS_LIST)
       .then(({ data }) => {
         this.loaded = true;
-        this.shopsList = data;
+        this.setShops(data);
       })
       .catch(console.error);
+  }
+
+  goToDetail(shop: Shop) {
+    this.$router.push({
+      name: 'shop-detail',
+      params: {
+        id: shop.id.toString(),
+      },
+    });
   }
 }
 </script>
@@ -104,6 +118,10 @@ export default class ManageShops extends Vue {
     table {
       thead {
         background-color: $gray;
+      }
+
+      tbody tr {
+        cursor: pointer;
       }
 
       td {

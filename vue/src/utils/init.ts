@@ -10,3 +10,24 @@ if (token) {
     refresh_token: refreshToken,
   });
 }
+
+const actions = [
+  {
+    namespace: 'spectacles',
+    actions: [
+      'getSpectacles',
+    ],
+  },
+  {
+    namespace: 'shops',
+    actions: [
+      'getShops',
+    ],
+  },
+];
+
+actions.forEach((action) => {
+  action.actions.forEach((el) => {
+    store.dispatch(`${action.namespace}/${el}`);
+  });
+});

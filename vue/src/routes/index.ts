@@ -33,6 +33,16 @@ const routes: RouteConfig[] = [
     component: () => import(/* webpackChunkName: "shops-manage" */ '@/views/ManageShops.vue'),
   },
   {
+    path: '/dashboard/shops/:id',
+    name: 'shop-detail',
+    component: () => import(/* webpackChunkName: "shop-detail" */ '@/views/ShopDetail.vue'),
+  },
+  {
+    path: '/dashboard/shops/:id/spectacles',
+    name: 'shop-spectacles',
+    component: () => import(/* webpackChunkName: "shop-spectacles" */ '@/views/SpectacleSelect.vue'),
+  },
+  {
     path: '/dashboard/spectacles/manage/add',
     name: 'new-spectacle',
     component: () => import(/* webpackChunkName: "new-spectacle" */ '@/views/SpectacleNew.vue'),

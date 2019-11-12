@@ -9,5 +9,5 @@ export default {
   SPECTACLE_NEW: `${baseUrl}/spectacle/new`,
 
   SHOPS_LIST: `${baseUrl}/shops`,
-  // SPECTACLE_NEW: `${baseUrl}/spectacle/new`,
+  SHOP: (id: number) => `${baseUrl}/shops/${id}`,
 };
