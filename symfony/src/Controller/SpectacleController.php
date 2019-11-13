@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Form\SpectacleNewType;
 use App\Helper\FormHandler;
 use App\Repository\SpectacleRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Service\SpectacleManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,12 +34,17 @@ class SpectacleController extends AbstractController
     public function new(
         Request $request,
         FormHandler $formHandler,
-        ObjectManager $em
+        SpectacleManager $spectacleManager
     ): JsonResponse
     {
         $spectacle = $formHandler->handleForm($request, SpectacleNewType::class);
-        $em->persist($spectacle);
-        $em->flush();
-        return $this->json($spectacle, JsonResponse::HTTP_CREATED, [], ['groups' => 'default']);
+        $spectacle = $spectacleManager->createSpectacle($spectacle);
+
+        return $this->json(
+            $spectacle,
+            JsonResponse::HTTP_CREATED,
+            [],
+            ['groups' => 'default']
+        );
     }
 }

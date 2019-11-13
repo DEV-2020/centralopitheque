@@ -35,10 +35,9 @@ pour assurer une meilleure sécurité de la plateforme et pour réaliser des sta
   - Boutique (vendeur)
   - Spectacle
   - Code unique de ticket (Génération de QR / Code-barre ?) 
-+ Plans des spectacles (sièges réservés / dispos)
++ Places de spectacle (sièges réservés / dispos)
   - Spectacle
-  - Row (A - x)
-  - Column (1 - x)
+  - Seat ID (1 à N places, le mapping est à faire en fonction du plan de la salle, on ne gère pas.)
   - ?Ticket (null => available)
 
 ## Boutique

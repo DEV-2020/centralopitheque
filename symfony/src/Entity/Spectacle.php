@@ -61,9 +61,21 @@ class Spectacle
      */
     private $shops;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="spectacle")
+     */
+    private $tickets;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SpectaclePlace", mappedBy="spectacle", orphanRemoval=true)
+     */
+    private $spectaclePlaces;
+
     public function __construct()
     {
         $this->shops = new ArrayCollection();
+        $this->tickets = new ArrayCollection();
+        $this->spectaclePlaces = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -166,6 +178,68 @@ class Spectacle
         if ($this->shops->contains($shop)) {
             $this->shops->removeElement($shop);
             $shop->removeSpectacle($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ticket[]
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(Ticket $ticket): self
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets[] = $ticket;
+            $ticket->setSpectacle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicket(Ticket $ticket): self
+    {
+        if ($this->tickets->contains($ticket)) {
+            $this->tickets->removeElement($ticket);
+            // set the owning side to null (unless already changed)
+            if ($ticket->getSpectacle() === $this) {
+                $ticket->setSpectacle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SpectaclePlace[]
+     */
+    public function getSpectaclePlaces(): Collection
+    {
+        return $this->spectaclePlaces;
+    }
+
+    public function addSpectaclePlace(SpectaclePlace $spectaclePlace): self
+    {
+        if (!$this->spectaclePlaces->contains($spectaclePlace)) {
+            $this->spectaclePlaces[] = $spectaclePlace;
+            $spectaclePlace->setSpectacle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpectaclePlace(SpectaclePlace $spectaclePlace): self
+    {
+        if ($this->spectaclePlaces->contains($spectaclePlace)) {
+            $this->spectaclePlaces->removeElement($spectaclePlace);
+            // set the owning side to null (unless already changed)
+            if ($spectaclePlace->getSpectacle() === $this) {
+                $spectaclePlace->setSpectacle(null);
+            }
         }
 
         return $this;
