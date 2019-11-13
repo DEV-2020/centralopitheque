@@ -65,3 +65,55 @@ contiennent le nom, la date (et les effectifs de vente ? -> ex: 23/30).
 
 Une route API sera disponible pour permettre aux boutiques de lister et vendre les spectacles
 auxquels elles sont autorisées.
+
+### Problèmes soulevés
+
+> Ne pas pouvoir acheter un billet pour une place qui n'est plus disponible à une date donnée
+
+-> Poser une contrainte côté boutique pour ne plus afficher les spectacles qui sont déjà 
+passés et/ou filtrer les spectacles côté centrale qui sont passés.
+
+> Ne pas pouvoir se placer à deux au même endroit au même moment
+
+-> Faire un serveur qui gèrerait les sockets des personnes sélectionnant leur place. Au 
+moment de la sélection de la place, on se connecte à un serveur de socket qui mapperait par 
+utilisateur la ou les places sélectionnées en attente de paiement. Lorsque le socket se 
+déconnecte, délocker la place.
+
+> Où met-on la bdd des utilisateurs ?
+
+-> Dans la boutique. Les seuls "utilisateurs" que la centrale gère sont les administrateurs 
+de la centrale ou les comptes boutiques pour leur permettre d'obtenir leur token
+
+> Qui émet le PDF ?
+
+-> La centrale, elle permettra l'unicité et la conformité des tickets.
+
+> Où se fait le choix du placement ? (qui affiche ?)
+
+-> Sur la boutique. Les places sont numérotées de 1 à N où N est le nombre de places dans la 
+salle. Un plan de la salle peut être récupéré sous la forme d'un array à plusieurs dimension 
+par exemple pour obtenir des lignes et des colonnes.
+
+> Lock des places avant paiement ou premier qui paie qui gagne ? à quel moment est-ce décidé ?
+> combien de temps ?
+
+-> Lock des places avant avec le serveur de Socket. Toujours penser au check avant de payer, on ne 
+sait jamais.
+
+> Où se trouve les factures ?
+
+-> Sur la boutique. Le prix de vente des billets est très probablement différent de celui en 
+centrale.
+
+> Suivi des ventes côté centrale
+
+-> Chaque Ticket est rattaché à une boutique, on peut donc retracer facilement qui a vendu le 
+billet.
+
+
+### TODO
+
++ Réservation des places depuis la boutique
+  - Visualisation des places dans la salle
+

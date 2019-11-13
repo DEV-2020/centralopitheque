@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Constants\UserRoles;
 use App\Entity\Shop;
 use App\Entity\User;
 use App\Repository\UserRepository;
@@ -36,7 +37,7 @@ class UserFixtures extends Fixture
             ->setUsername(self::USER['username'])
             ->setPassword(self::USER['password'])
             ->setEmail(self::USER['email'])
-            ->setRoles(['ROLE_ADMIN']);
+            ->setRoles([UserRoles::ROLE_ADMIN]);
 
         $this->userRepository->register($admin);
 
@@ -44,6 +45,7 @@ class UserFixtures extends Fixture
             ->setUsername(self::SHOP['username'])
             ->setPassword(self::SHOP['password'])
             ->setEmail(self::SHOP['email'])
+            ->setRoles([UserRoles::ROLE_SHOP])
             ->setShop((new Shop())->setName(self::SHOP['shop']));
 
         $this->userRepository->register($shop);
