@@ -4,7 +4,7 @@
     <Spinner v-if="!loaded" stroke="#2ecc71" />
     <div class="shop-info" v-if="shop">
       <h2>{{ shop.name }}</h2>
-      <a :href="`mailto:${shop.owner.email}`">{{ shop.owner.email }}</a>
+      <a v-if="shop.owner" :href="`mailto:${shop.owner.email}`">{{ shop.owner.email }}</a>
       <div class="spectacles">
         <h2>{{ $t('spectacles') }}
           <span>({{ shop.spectacles.length }}/3)</span>
@@ -77,7 +77,13 @@ export default class ShopDetail extends Vue {
         this.loaded = true;
         this.shop = data;
       })
-      .catch(console.error);
+      .catch(() => {
+        this.$notify({
+          text: this.$tc('errors.shopNotFound'),
+          group: 'notifications',
+          type: 'error',
+        });
+      });
   }
 }
 </script>

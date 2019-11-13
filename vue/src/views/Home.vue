@@ -2,7 +2,6 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <h1>La Centralopithèque</h1>
-    <p @click="testToken">CLICK !</p>
   </div>
 </template>
 
@@ -11,13 +10,7 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component
-export default class Home extends Vue {
-  testToken() {
-    this.$api.get('/')
-      .then(console.log)
-      .catch(console.error);
-  }
-}
+export default class Home extends Vue {}
 </script>
 
 <style lang="scss" scoped>

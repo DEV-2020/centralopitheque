@@ -89,8 +89,21 @@ export default class SpectacleNew extends Vue {
       .then(() => {
         this.busy = false;
         this.$router.replace({ name: 'spectacles-manage' });
+        this.$notify({
+          group: 'notifications',
+          text: this.$tc('spectacleCreated'),
+          type: 'success',
+        });
       })
-      .catch(console.error);
+      .catch(() => {
+        this.$notify({
+          type: 'error',
+          group: 'notifications',
+          text: this.$tc('errors.errorOccurredWhile', undefined, {
+            reason: this.$tc('errors.creatingSpectacle'),
+          }),
+        });
+      });
   }
 }
 </script>

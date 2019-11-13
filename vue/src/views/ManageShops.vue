@@ -29,7 +29,7 @@
             v-for="shop in shops"
             :key="shop.id">
             <td class="left">{{ shop.name }}</td>
-            <td class="left">{{ shop.owner.email }}</td>
+            <td class="left">{{ shop.owner && shop.owner.email }}</td>
             <td>
               <a :href="shop.url" class="left" v-if="shop.url">{{ shop.url }}</a>
               <span v-else>ø</span>
@@ -60,7 +60,15 @@ export default class ManageShops extends Vue {
         this.loaded = true;
         this.setShops(data);
       })
-      .catch(console.error);
+      .catch(() => {
+        this.$notify({
+          text: this.$tc('errors.errorOccurredWhile', undefined, {
+            reason: this.$tc('errors.fetchingShops'),
+          }),
+          group: 'notifications',
+          type: 'error',
+        });
+      });
   }
 
   goToDetail(shop: Shop) {

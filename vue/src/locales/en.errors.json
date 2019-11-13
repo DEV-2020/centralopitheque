@@ -1,5 +1,11 @@
 {
   "errors": {
-    "username": "Username already taken"
+    "username": "Username already taken",
+    "errorOccurredWhile": "An error occurred while {reason}",
+    "fetchingShops": "fetching shops",
+    "fetchingSpectacles": "fetching spectacles",
+    "shopNotFound": "Shop not found",
+    "creatingSpectacle": "creating a spectacle",
+    "spectacleChoice": "selecting spectacles"
   }
 }

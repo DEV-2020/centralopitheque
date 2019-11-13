@@ -66,7 +66,15 @@ export default class ManageSpectacles extends Vue {
         this.loaded = true;
         this.setSpectacles(data);
       })
-      .catch(console.error);
+      .catch(() => {
+        this.$notify({
+          text: this.$tc('errors.errorOccurredWhile', undefined, {
+            reason: this.$tc('errors.fetchingSpectacles'),
+          }),
+          group: 'notifications',
+          type: 'error',
+        });
+      });
   }
 }
 </script>

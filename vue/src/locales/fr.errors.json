@@ -1,5 +1,11 @@
 {
   "errors": {
-    "username": "Nom d'utilisateur déjà pris"
+    "username": "Nom d'utilisateur déjà pris",
+    "errorOccurredWhile": "Une erreur est survenue lors {reason}",
+    "fetchingShops": "du chargement des boutiques",
+    "fetchingSpectacles": "du chargement des spectacles",
+    "shopNotFound": "Boutique non trouvée",
+    "creatingSpectacle": "de la création du spectacle",
+    "spectacleChoice": "du choix des spectacles"
   }
 }
