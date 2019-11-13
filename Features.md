@@ -116,4 +116,15 @@ billet.
 
 + Réservation des places depuis la boutique
   - Visualisation des places dans la salle
+  - Mise en place d'un serveur de socket pour gérer le choix des places
+  - Réservation
+  - Mail de confirmation
+  - Paiement
 
++ Préparer la boutique
+  - Comptes utilisateurs
+  - Authentification auprès de la centrale
+  - Récupération des spectacles
+  - Affichage et interface de paiement (Choix du spectacle, gestion du panier, interface de 
+  paiement)
+  
