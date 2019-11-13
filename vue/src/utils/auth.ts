@@ -45,6 +45,5 @@ export function refreshToken(): Promise<void> {
     .then(({ data }) => {
       updateAccessToken(data.token);
       updateRefreshToken(data.refresh_token);
-    })
-    .catch(console.log);
+    });
 }

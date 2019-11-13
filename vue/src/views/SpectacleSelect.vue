@@ -107,7 +107,15 @@ export default class SpectacleSelect extends Vue {
           },
         });
       })
-      .catch(console.error);
+      .catch(() => {
+        this.$notify({
+          type: 'error',
+          group: 'notifications',
+          text: this.$tc('errors.errorOccurredWhile', undefined, {
+            reason: this.$tc('errors.spectacleChoice'),
+          }),
+        });
+      });
   }
 
   @Action('updateShop', { namespace: 'shops' })

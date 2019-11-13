@@ -2,8 +2,8 @@
   <nav class="navbar">
     <h1><router-link to="/">Centralopithèque</router-link></h1>
     <ul v-if="!loggedIn">
-      <li><router-link :to="{name: 'sign-up'}">{{ $t('signUp') }}</router-link></li>
       <li><router-link :to="{name: 'sign-in'}">{{ $t('signIn') }}</router-link></li>
+      <li><router-link :to="{name: 'sign-up'}">{{ $t('signUp') }}</router-link></li>
     </ul>
     <ul v-else>
       <li><router-link :to="{name: 'dashboard'}"><b>{{ user.username }}</b></router-link></li>

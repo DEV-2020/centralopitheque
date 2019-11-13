@@ -18,7 +18,7 @@ import { Action } from 'vuex-class';
 import '@/assets/scss/reset.scss';
 import '@/assets/scss/notifications.scss';
 import Navbar from '@/components/Navbar.vue';
-import { isTokenValid } from './utils/auth';
+import { isTokenValid, refreshToken, getRefreshToken } from './utils/auth';
 
 @Component({
   components: {
@@ -28,16 +28,28 @@ import { isTokenValid } from './utils/auth';
 export default class App extends Vue {
   @Action('logout', { namespace: 'auth' }) logout!: () => void;
 
-  created() {
+  async created() {
     if (!isTokenValid()) {
-      this.logout();
-      this.$router.replace('sign-in').catch(() => {});
-      this.$notify({
-        group: 'notifications',
-        type: 'error',
-        text: this.$tc('expiredSession'),
-      });
+      if (getRefreshToken()) {
+        try {
+          await refreshToken();
+        } catch (e) {
+          this.exit();
+        }
+      } else {
+        this.exit();
+      }
     }
+  }
+
+  exit() {
+    this.logout();
+    this.$router.replace('sign-in').catch(() => {});
+    this.$notify({
+      group: 'notifications',
+      type: 'error',
+      text: this.$tc('expiredSession'),
+    });
   }
 }
 </script>
