@@ -1,10 +1,10 @@
 import { ApiUser } from './jwt';
+import { Spectacle } from './spectacles';
 
 export interface Shop {
   id: number;
   name: string;
   url?: string | null;
-  owner: ApiUser;
-  // @todo change type later
-  spectacles: any[];
+  owner?: ApiUser;
+  spectacles: Spectacle[];
 }

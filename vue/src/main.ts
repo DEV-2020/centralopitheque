@@ -6,14 +6,17 @@ import i18n from './i18n';
 import api from './utils/api';
 import './plugins';
 import './plugins/components';
-import './utils/init';
+import init from './utils/init';
 
 Vue.config.productionTip = false;
 Vue.prototype.$api = api;
 
-new Vue({
-  router,
-  store,
-  i18n,
-  render: h => h(App),
-}).$mount('#app');
+init()
+  .finally(() => {
+    new Vue({
+      router,
+      store,
+      i18n,
+      render: h => h(App),
+    }).$mount('#app');
+  });

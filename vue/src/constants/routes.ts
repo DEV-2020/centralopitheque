@@ -10,4 +10,5 @@ export default {
 
   SHOPS_LIST: `${baseUrl}/shops`,
   SHOP: (id: number) => `${baseUrl}/shops/${id}`,
+  SET_SHOP_SPECTACLES: (id: number) => `${baseUrl}/shops/${id}/spectacles`,
 };

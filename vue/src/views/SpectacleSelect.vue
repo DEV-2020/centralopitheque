@@ -47,11 +47,12 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { State, namespace, Getter } from 'vuex-class';
+import { Getter, Action } from 'vuex-class';
 import ButtonActivityIndicator from '@/components/ButtonActivityIndicator.vue';
 import { toReadableDate } from '@/utils/time-converter';
 import { Spectacle } from '@/types/spectacles';
 import { Shop } from '@/types/shops';
+import routes from '@/constants/routes';
 
 type CheckableSpectacle = Spectacle & { checked: boolean };
 
@@ -88,7 +89,29 @@ export default class SpectacleSelect extends Vue {
   saveSelected() {
     const ids = this.checkedSpectacles.map(el => el.id);
     this.busy = true;
+    this.$api.post<Shop>(routes.SET_SHOP_SPECTACLES(this.shop.id), {
+      spectacles: ids,
+    })
+      .then(({ data }) => {
+        this.busy = false;
+        this.updateShop(data);
+        this.$notify({
+          group: 'notifications',
+          text: 'Successfully updated shop spectacles',
+          type: 'success',
+        });
+        this.$router.replace({
+          name: 'shop-detail',
+          params: {
+            id: this.shop.id.toString(),
+          },
+        });
+      })
+      .catch(console.error);
   }
+
+  @Action('updateShop', { namespace: 'shops' })
+  updateShop!: (shop: Shop) => void;
 
   @Getter('spectacles', { namespace: 'spectacles' })
   private availableSpectacles!: Spectacle[];

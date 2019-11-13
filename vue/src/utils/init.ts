@@ -4,30 +4,36 @@ import { getAccessToken, getRefreshToken } from './auth';
 const token: string | null = getAccessToken();
 const refreshToken: string | null = getRefreshToken();
 
-if (token) {
-  store.dispatch('auth/setUser', {
-    token,
-    refresh_token: refreshToken,
+export default function init(): Promise<void[]> {
+  if (token) {
+    store.dispatch('auth/setUser', {
+      token,
+      refresh_token: refreshToken,
+    });
+  }
+
+  const actions = [
+    {
+      namespace: 'spectacles',
+      actions: [
+        'getSpectacles',
+      ],
+    },
+    {
+      namespace: 'shops',
+      actions: [
+        'getShops',
+      ],
+    },
+  ];
+
+  const promises: Promise<void>[] = [];
+
+  actions.forEach((action) => {
+    action.actions.forEach((el) => {
+      promises.push(store.dispatch(`${action.namespace}/${el}`) as Promise<any>);
+    });
   });
+
+  return Promise.all(promises);
 }
-
-const actions = [
-  {
-    namespace: 'spectacles',
-    actions: [
-      'getSpectacles',
-    ],
-  },
-  {
-    namespace: 'shops',
-    actions: [
-      'getShops',
-    ],
-  },
-];
-
-actions.forEach((action) => {
-  action.actions.forEach((el) => {
-    store.dispatch(`${action.namespace}/${el}`);
-  });
-});

@@ -20,8 +20,8 @@ const actions: ActionTree<SpectacleState, RootState> = {
   setSpectacles({ commit }, data: Spectacle[]): void {
     commit('SET_SPECTACLES', data);
   },
-  getSpectacles({ commit }): void {
-    api.get<Spectacle[]>(routes.SPECTACLES_LIST)
+  getSpectacles({ commit }): Promise<void> {
+    return api.get<Spectacle[]>(routes.SPECTACLES_LIST)
       .then(({ data }) => {
         commit('SET_SPECTACLES', data);
       })

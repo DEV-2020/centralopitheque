@@ -20,12 +20,15 @@ const actions: ActionTree<ShopState, RootState> = {
   setShops({ commit }, data: Shop[]) {
     commit('SET_SHOPS', data);
   },
-  getShops({ commit }): void {
-    api.get<Shop[]>(routes.SHOPS_LIST)
+  getShops({ commit }): Promise<void> {
+    return api.get<Shop[]>(routes.SHOPS_LIST)
       .then(({ data }) => {
         commit('SET_SHOPS', data);
       })
       .catch(console.error);
+  },
+  updateShop({ commit }, data: Shop): void {
+    commit('UPDATE_SHOP', data);
   },
 };
 
@@ -38,6 +41,10 @@ const getters: GetterTree<ShopState, RootState> = {
 const mutations: MutationTree<ShopState> = {
   SET_SHOPS(state: ShopState, payload: Shop[]) {
     state.shops = payload;
+  },
+  UPDATE_SHOP(state: ShopState, payload: Shop): void {
+    const index = state.shops.findIndex(shop => shop.id === payload.id);
+    state.shops.splice(index, 1, payload);
   },
 };
 
